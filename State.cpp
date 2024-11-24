@@ -88,11 +88,11 @@ void State::updateDiagonals(int x, int y, Player player)
 {
     if (x + y == 2)
     {
-        diagonals[1] += player;
+        diagonals[0] += player;
     }
     if (x == y)
     {
-        diagonals[2] += player;
+        diagonals[1] += player;
     }
 }
 

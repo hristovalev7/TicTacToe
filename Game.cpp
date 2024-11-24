@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : currentPlayer(X), human(X), bot(O)
+Game::Game() : currentPlayer(Empty)
 {}
 
 void Game::start()
@@ -72,8 +72,8 @@ void Game::humanMove()
     std::cin.ignore(1);
     std::cin >> y;
     std::cin.ignore(1);
-    currentState.place(x, y, human);
-    currentPlayer = bot;
+    currentState.place(x, y, X);
+    currentPlayer = O;
 }
 
 void Game::botMove()
@@ -83,40 +83,17 @@ void Game::botMove()
     std::pair<int, int> botMove{-1, -1};
     for (std::pair<int, int> move: currentState.getPossibleMoves())
     {
-        currentState.set(move.first, move.second, bot);
-        int currentValue{minimax(human)};
-        currentState.undo(move.first, move.second, bot);
+        currentState.set(move.first, move.second, O);
+        int currentValue{minimax(X)};
+        currentState.undo(move.first, move.second, O);
         if (currentValue < bestValue)
         {
             botMove = move;
         }
         bestValue = std::min(bestValue, currentValue);
     }
-    currentState.place(botMove.first, botMove.second, bot);
-    currentPlayer = human;
-}
-
-void Game::botMove2()
-{
-    std::cout << "Bot:\n";
-    //TODO: algorithm here
-    std::pair<int, int> bestMove{currentState.getPossibleMoves().begin()->first, currentState.getPossibleMoves().begin()->second};
-    currentState.set(bestMove.first, bestMove.second, O);
-    int bestValue{currentState.evaluate()};
-    currentState.undo(bestMove.first, bestMove.second, O);
-    for (std::pair<int, int> move: currentState.getPossibleMoves())
-    {
-        currentState.set(move.first, move.second, O);
-        int currentValue{currentState.evaluate()};
-        currentState.undo(move.first, move.second, O);
-        if (currentValue < bestValue)
-        {
-            bestMove = move;
-        }
-        bestValue = std::min(bestValue, currentValue);
-    }
-    currentState.place(bestMove.first, bestMove.second, bot);
-    currentPlayer = human;
+    currentState.place(botMove.first, botMove.second, O);
+    currentPlayer = X;
 }
 
 int Game::minimax(Player player)
@@ -126,7 +103,7 @@ int Game::minimax(Player player)
         return currentState.evaluate();
     }
     int value;
-    if (player == human)
+    if (player == X)
     {
         value = INT_MIN;
         for (std::pair<int, int> action: currentState.getPossibleMoves())

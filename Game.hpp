@@ -6,8 +6,6 @@
 class Game
 {
 private:
-    Player human;
-    Player bot;
     Player currentPlayer;
 public:
     State currentState;
@@ -28,8 +26,6 @@ private:
     void humanMove();
 
     void botMove();
-
-    void botMove2();
 
 };
 
