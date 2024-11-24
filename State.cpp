@@ -33,15 +33,7 @@ bool State::xWins() const
 
 bool State::oWins() const
 {
-    bool b1{columns[0] == -3};
-    bool b2{columns[1] == -3};
-    bool b3{columns[2] == -3};
-    bool b4{rows[0] == -3};
-    bool b5{rows[1] == -3};
-    bool b6{rows[2] == -3};
-    bool b7{diagonals[0] == -3};
-    bool b8{diagonals[1] == -3};
-    return b1 || b2 || b3 || b4 || b5 || b6 || b7 || b8;
+    return columns[0] == -3 || columns[1] == -3 || columns[2] == -3 || rows[0] == -3 || rows[1] == -3 || rows[2] == -3 || diagonals[0] == -3 || diagonals[1] == -3;
 }
 
 bool State::isTerminal() const
@@ -112,5 +104,10 @@ void State::undo(int x, int y, Player player)
     columns[y] -= player;
     updateDiagonals(x, y, static_cast<Player>(-player));
     possibleMoves.emplace(x, y);
+}
+
+bool State::isFree(int x, int y) const
+{
+    return board[x][y] == Empty;
 }
 

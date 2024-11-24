@@ -72,12 +72,29 @@ void Game::humanMove()
     std::cin.ignore(1);
     std::cin >> y;
     std::cin.ignore(1);
+    while (!currentState.isFree(x, y))
+    {
+        std::cout << "Cell isn't free. Try again:\n";
+        std::cin >> x;
+        std::cin.ignore(1);
+        std::cin >> y;
+        std::cin.ignore(1);
+    }
     currentState.place(x, y, X);
     currentPlayer = O;
 }
 
 void Game::botMove()
 {
+    // Za raznoobrazie kogato bot-a e pruv
+    if (currentState.getPossibleMoves().size() == 9)
+    {
+        int x{randomBetween(0, 2)};
+        int y{randomBetween(0, 2)};
+        currentState.place(x, y, O);
+        currentPlayer = X;
+        return;
+    }
     std::cout << "Bot:\n";
     int bestValue{INT_MAX};
     std::pair<int, int> botMove{-1, -1};

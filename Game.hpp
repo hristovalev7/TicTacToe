@@ -2,14 +2,15 @@
 #define TICTACTOE_GAME_HPP
 
 #include "State.hpp"
+#include "functions.hpp"
 
 class Game
 {
 private:
     Player currentPlayer;
-public:
     State currentState;
 
+public:
     Game();
 
     void start();
