@@ -2,7 +2,6 @@
 #define TICTACTOE_GAME_HPP
 
 #include "State.hpp"
-#include "functions.hpp"
 
 class Game
 {
