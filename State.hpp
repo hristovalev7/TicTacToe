@@ -41,7 +41,7 @@ public:
 
     void undo(int x, int y, Player player);
 
-    bool isFree(int x, int y) const;
+    [[nodiscard]] bool isFree(int x, int y) const;
 
 private:
     void updateDiagonals(int x, int y, Player player);
