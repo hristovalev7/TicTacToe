@@ -1,6 +1,7 @@
 #ifndef TICTACTOE_GAME_HPP
 #define TICTACTOE_GAME_HPP
 
+#include <chrono>
 #include "State.hpp"
 
 class Game
@@ -17,6 +18,8 @@ public:
     void move();
 
     int minimax(Player player);
+
+    int minimaxAB(Player player, int alpha, int beta);
 
 private:
     static void greet();
